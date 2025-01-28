@@ -11,7 +11,7 @@ class StoreSemesterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreSemesterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'curriculum_id' => 'required|exists:curriculums,id',
+            'name' => 'required|string',
         ];
     }
 }

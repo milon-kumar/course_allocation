@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained('departments')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('curriculum_id')->nullable()->constrained('curriculums')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('semester_id')->constrained('semesters')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->string('code');
             $table->string('credit');
             $table->boolean('is_lab')->default(false);
+            $table->string('created_by');
             $table->timestamps();
         });
     }

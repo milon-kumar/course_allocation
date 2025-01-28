@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,18 +14,25 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         $academicDisciplines = [
-            "Business Administration",
+            "Computer Science & Engineering (CSE) ",
             "English",
             "Biochemistry and Molecular Biology",
             "EEE",
             "Law",
             "Pharmacy",
-            "CSE",
+            "Business Administration",
             "Civil Engineering",
             "Sociology",
             "Political Science",
             "Economics",
             "Microbiology"
         ];
+
+        foreach ($academicDisciplines as $academicDiscipline){
+            Department::create([
+               'name' => $academicDiscipline,
+                'created_by' => 1
+            ]);
+        }
     }
 }

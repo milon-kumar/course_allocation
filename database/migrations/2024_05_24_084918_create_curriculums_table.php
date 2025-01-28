@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('curriculums', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['bi','tri']);
+            $table->foreignId('department_id')->constrained('departments')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->string('created_by');
             $table->timestamps();

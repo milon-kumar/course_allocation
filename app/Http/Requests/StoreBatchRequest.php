@@ -11,7 +11,7 @@ class StoreBatchRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreBatchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'department_id'=>['required','numeric'],
+            'curriculum_id'=>['required','numeric'],
+            'coordinator'=>['required','numeric'],
+            'name' => ['nullable'],
+            'number'=>['required'],
         ];
     }
 }

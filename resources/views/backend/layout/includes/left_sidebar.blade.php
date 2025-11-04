@@ -131,5 +131,33 @@
             </ul>
             <div class="clearfix"></div>
         </div>
+    @elseif($user->role == 'student')
+
+        <a href="{{route('teacher.dashboard')}}" class="logo text-center logo-dark">
+            <span class="logo-lg">
+                <img src="{{asset('/')}}assets/backend/images/logo-dark.png" alt="" height="50">
+            </span>
+            <span class="logo-sm">
+                <img src="{{asset('/')}}assets/backend/images/logo_sm_dark.png" alt="" height="50">
+            </span>
+        </a>
+        <div class="h-100" id="leftside-menu-container" data-simplebar="">
+            <ul class="side-nav">
+                <li class="side-nav-title side-nav-item">Navigation</li>
+                <li class="side-nav-item">
+                    <a href="{{route("student.dashboard")}}" class="side-nav-link">
+                        <i class="uil-dashboard"></i>
+                        <span> Dashboard </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
+                    <a href="{{route("student.feedback.index")}}" class="side-nav-link">
+                        <i class="uil-dashboard"></i>
+                        <span> Teacher Feedback </span>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
     @endif
 </div>

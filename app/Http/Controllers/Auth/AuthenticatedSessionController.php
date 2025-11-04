@@ -33,6 +33,9 @@ class AuthenticatedSessionController extends Controller
         } elseif (auth()->check() && auth()->user()->role == 'teacher') {
             flash()->success('Login Successfully');
             return redirect()->route('teacher.dashboard');
+        } elseif (auth()->check() && auth()->user()->role == 'student') {
+            flash()->success('Login Successfully');
+            return redirect()->route('student.dashboard');
         } else {
             flash()->success('Access Denied jklkjkl');
             return redirect()->back();

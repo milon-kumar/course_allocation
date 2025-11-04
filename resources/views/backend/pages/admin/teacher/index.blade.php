@@ -49,16 +49,11 @@
                                             <div class="">
                                                 <h4 class="mt-1 mb-1">{{ $teacher->name ?? 'Teacher Name'}}</h4>
                                                 <p class="font-12 p-0 m-0"> {{ $teacher->email ?? 'teacheremail@example.com'}}</p>
-                                                <p class="font-12 p-0 m-0"> {{ $teacher->phone ?? '*** **** ** **' }}</p>
+{{--                                                <p class="font-12 p-0 m-0"> {{ $teacher->phone ?? '*** **** ** **' }}</p>--}}
 
-                                                <ul class="mb-0 list-inline">
-                                                    <li class="list-inline-item me-3">
-                                                        <h5 class="mb-1">Position</h5>
-                                                        <p class="mb-0 font-13">{{ $teacher->position ?? 'Teacher DEG'}}</p>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <h5 class="mb-1">Priority</h5>
-                                                        <p class="mb-0 font-13">{{ $teacher->priority ?? 'Teacher PRIO' }}</p>
+                                                <ul class="list-inline mb-0 d-flex align-items-center">
+                                                    <li class="list-inline-item me-4">
+                                                        <strong>Rating:</strong> {{ $teacher->rating ?? '0.0' }}
                                                     </li>
                                                 </ul>
                                             </div>

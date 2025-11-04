@@ -15,7 +15,11 @@ class UserController extends Controller
     {
         $data = [
             'title' => 'Teachers',
-            'teachers' => User::where('role','teacher')->paginate(21),
+            'teachers' => User::selectRaw('users.*, SUM(feedbacks.rating) as rating')
+                ->leftJoin('feedbacks', 'feedbacks.teacher_id', '=', 'users.id')
+                ->where('role','teacher')
+                ->groupBy('users.id')
+                ->paginate(21),
         ];
         return view('backend.pages.admin.teacher.index',$data);
     }

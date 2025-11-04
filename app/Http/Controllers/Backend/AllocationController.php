@@ -10,9 +10,16 @@ class AllocationController extends Controller
 {
     public function requestedAllocation()
     {
+
+        $allocations = Allocation::with([
+            'user.department',
+            'subject.department',
+            'subject.curriculum',
+            'subject.semester'
+        ])->get();
         $data = [
             'title' => "Requested Allocation",
-            'allocations' => Allocation::with(['user.department', 'subject.department', 'subject.curriculum', 'subject.semester'])->get(),
+            'allocations' => $allocations->groupBy('subject_id')
         ];
 
         return view('backend.pages.admin.allocation.requested_allocation', $data);

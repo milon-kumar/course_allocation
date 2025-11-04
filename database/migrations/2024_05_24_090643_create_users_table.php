@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('created_by')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->enum('role', ['admin', 'teacher'])->default('teacher');
+            $table->enum('role', ['admin', 'teacher', 'student'])->default('teacher');
             $table->timestamps();
         });
 

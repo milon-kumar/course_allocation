@@ -27,4 +27,12 @@ class DashboardController extends Controller
         ];
         return view('backend.pages.teacher.dashboard.dashboard', $data);
     }
+
+    public function studentDashboard(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|string
+    {
+        $data = [
+            'title' => 'Dashboard',
+        ];
+        return view('backend.pages.student.dashboard.dashboard', $data);
+    }
 }

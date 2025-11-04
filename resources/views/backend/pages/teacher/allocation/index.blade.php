@@ -48,18 +48,24 @@
                                         <select name="department" id="selectDepartment" class="form-control select2 @error('department_id') border border-danger @enderror" data-toggle="select2">
                                             <option selected disabled value="null">Select Department</option>
                                             @foreach ($departments as $department)
-                                                <option value="{{$department->id}}" {{ old('department_id') == $department->id ? 'selected' : ''}}>{{ $department->name ?? '---'}}</option>
+                                                <option {{ request()->input('department') == $department->id ? 'selected' : '' }} value="{{$department->id}}" {{ old('department_id') == $department->id ? 'selected' : ''}}>{{ $department->name ?? '---'}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <select id="selectCurriculum" name="curriculum" class="form-control select2 @error('curriculum_id') border border-danger @enderror" data-toggle="select2">
                                             <option selected disabled value="null">Select Curriculum</option>
+                                            @foreach ($curriculums as $curriculum)
+                                                <option {{ request()->input('curriculum') == $curriculum->id ? 'selected' : '' }} value="{{$curriculum->id}}" {{ old('curriculum_id') == $curriculum->id ? 'selected' : ''}}>{{ $curriculum->name ?? '---'}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-3">
                                         <select id="selectSemester" name="semester" class="form-control select2 @error('semester_id') border border-danger @enderror" data-toggle="select2">
                                             <option selected disabled value="null">Select Semester</option>
+                                            @foreach ($semesters as $semester)
+                                                <option {{ request()->input('semester') == $semester->id ? 'selected' : '' }} value="{{$semester->id}}" {{ old('semester_id') == $semester->id ? 'selected' : ''}}>{{ $semester->name ?? '---'}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-1 text-end ">

@@ -300,8 +300,19 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12345'),
                 'role' => 'teacher',
             ],
+            [
+                'name' => 'Jugol Kumar',
+                'position' => 'Lecturer',
+                'department' => 'Department of Economics',
+                'email' => 'student.eco@diu.ac',
+                'password' => Hash::make('12345'),
+                'role' => 'student',
+            ]
         ];
         $i = 0;
+
+//        User::insert($users);
+
 
         foreach ($users as $user){
             User::create([

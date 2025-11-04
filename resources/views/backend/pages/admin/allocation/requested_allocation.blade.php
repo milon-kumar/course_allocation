@@ -3,6 +3,18 @@
 @php
     $allocationIds = session()->get('allocated_subjects')
 @endphp
+@section('style')
+    <style>
+        .table-responsive {
+            overflow: visible !important;
+        }
+
+        .table-responsive .dropdown {
+            position: static !important;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row mt-3">
@@ -51,104 +63,87 @@
                                 </div>
                             </div>
                         </form> --}}
+
                         <div class="row">
-                            @if ($allocations->count()> 0)
-                                <table id="basic-datatable" class="table dt-responsive nowrap w-100 table-hover table-bordered table-striped">
-                                    <tr>
-                                        <th># SL</th>
-                                        <th>Teacher Details</th>
-                                        <th>Course Details</th>
-                                        <th>Current Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    @foreach ($allocations as $value)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>
-                                                <div class="">
-                                                    <h5 class="p-0 m-0">{{ $value->user->name}}</h6>
-                                                    <p class="p-0 m-0">Email : {{$value->user->email ?? ''}}</p>
-                                                    @if ($value->user->phone)
-                                                        <p class="p-0 m-0">Email : {{$value->user->phone ?? ''}}</p>
-                                                    @endif
-                                                    <p class="p-0 m-0">
-                                                        <small class="p-0 m-0">
-                                                            <b>Position : {{$value->user->position ?? '---'}}</b>
-                                                        </small>
-                                                    </p>
-                                                    @if ($value->user->department )
-                                                        <small class="m-0 p-0">
-                                                            <b>Department : </b> {{ $value->user->department->name ?? '---  '}}
-                                                        </small>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            <td>
-                                               <div class="">
-                                                    <p class="m-0 p-0">{{ $value->subject->name ?? '---'}} @if ($value->subject->is_lab == 1)<small class="badge badge-success-lighten">With Lab</small>@endif</p>
-                                                    <p class="m-0 p-0">
-                                                        <small>
-                                                            <b>Code :</b>
-                                                            {{$value->subject->code ?? '---'}}
-                                                        </small>
-                                                    </p>
-                                                    <p class="m-0 p-0">
-                                                        <small>
-                                                            <b>Credit :</b>
-                                                            {{$value->subject->credit ?? '---'}}
-                                                        </small>
-                                                    </p>
-                                                    <p class="m-0 p-0">
-                                                        <small>
-                                                            <b>Department :</b>
-                                                            {{$value->subject->department->name ?? '---'}}
-                                                        </small>
-                                                    </p>
-                                                    <p class="m-0 p-0">
-                                                        <small>
-                                                            <b>Curriculum:</b>
-                                                            {{$value->subject->curriculum->name ?? '---'}}
-                                                        </small>
-                                                    </p>
-                                                    <p class="m-0 p-0">
-                                                        <small>
-                                                            <b>Semester:</b>
-                                                            {{$value->subject->semester->name ?? '---'}}
-                                                        </small>
-                                                    </p>
-                                               </div>
-                                            </td>
-                                            <td>
-                                                @if ($value->status == 'approved')
-                                                    <span class="badge badge-success-lighten">Approve</span>
-                                                @elseif ($value->status == 'pending')
-                                                    <span class="badge badge-warning-lighten">Pending</span>
-                                                @elseif ($value->status == 'draft')
-                                                    <span class="badge badge-danger-lighten">Draft</span>
+                            @forelse ($allocations as $subjectId => $teachers)
+                                @php
+                                    $subject = $teachers[0]->subject ?? null;
+                                @endphp
+                                <div class="col-md-12 mb-4">
+                                    <div class="card border shadow-sm">
+                                        <div class="card-header bg-light">
+                                            <h5 class="mb-0">{{ $subject->name ?? 'Unknown Subject' }}
+                                                @if ($subject && $subject->is_lab)
+                                                    <small class="badge bg-success text-white">With Lab</small>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <div class="dropdown float-end">
-                                                    <a href="#" class="dropdown-toggle arrow-none card-drop " data-bs-toggle="dropdown" aria-expanded="true">
-                                                        <i class="mdi mdi-dots-vertical"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end " data-popper-placement="top-end" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(-140px, -28.7812px);">
-                                                        <a href="{{route('admin.approveAllocationSubject',$value->id)}}" class="dropdown-item">Approve</a>
-                                                        <a class="dropdown-item draft-button" data-subject-id="{{ $value->id }}" type="button" data-bs-toggle="modal" data-bs-target="#signup-modal">Draft</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                            </table>
-                            @else
-                                <div class="d-flex justify-content-center align-item-center">
-                                    <div class="">
-                                        <h4 class="text-center">No Data Found</h4>
+                                            </h5>
+                                            <small class="text-muted d-block">
+                                                Code: {{ $subject->code ?? '---' }} |
+                                                Credit: {{ $subject->credit ?? '---' }} |
+                                                Department: {{ $subject->department->name ?? '---' }} |
+                                                Curriculum: {{ $subject->curriculum->name ?? '---' }} |
+                                                Semester: {{ $subject->semester->name ?? '---' }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered mb-0 align-middle">
+                                            <thead class="table-light">
+                                            <tr>
+                                                <th width="5%">#</th>
+                                                <th>Teacher Name</th>
+                                                <th>Email</th>
+                                                <th>Position</th>
+                                                <th>Priority</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach ($teachers as $index => $allocation)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $allocation->user->name ?? '---' }}</td>
+                                                    <td>{{ $allocation->user->email ?? '---' }}</td>
+                                                    <td>{{ $allocation->user->position ?? '---' }}</td>
+                                                    <td>{{ $allocation->user->priority ?? '---' }}</td>
+                                                    <td>
+                                                        @if ($allocation->status == 'approved')
+                                                            <span class="badge bg-success">Approved</span>
+                                                        @elseif ($allocation->status == 'pending')
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                        @elseif ($allocation->status == 'draft')
+                                                            <span class="badge bg-danger">Draft</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center gap-2">
+                                                            <a href="{{ route('admin.approveAllocationSubject', $allocation->id) }}"
+                                                               class="btn btn-sm btn-success">
+                                                                Approve
+                                                            </a>
+
+                                                            <button class="btn btn-sm btn-danger draft-button"
+                                                                    data-subject-id="{{ $allocation->id }}"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#signup-modal">
+                                                                Draft
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                            @endif
+                            @empty
+                                <div class="col-md-12 text-center">
+                                    <h4>No Allocations Found</h4>
+                                </div>
+                            @endforelse
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\BatchController;
 use App\Http\Controllers\Backend\CurriculumController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DepartmentController;
+use App\Http\Controllers\Backend\FeedbackController;
 use App\Http\Controllers\Backend\SemesterController;
 use App\Http\Controllers\Backend\SubjectController;
 use App\Http\Controllers\Backend\TeacherController;
@@ -22,6 +23,8 @@ Route::get('/dashboard', function () {
         return redirect()->route('admin.dashboard');
     } elseif (Auth::user()->role == 'teacher') {
         return redirect()->route('teacher.dashboard');
+    }elseif (Auth::user()->role == 'student') {
+        return redirect()->route('student.dashboard');
     } else {
         return redirect()->back();
     }
@@ -70,6 +73,14 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['auth'
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+Route::group(['prefix' => 'student', 'as' => 'student.', 'middleware' => ['auth', 'student']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'studentDashboard'])->name('dashboard');
+    Route::resource('/feedback', FeedbackController::class);
+});
+
 
 Route::get('/department/{department}/curriculums', [CurriculumController::class, 'getCurriculumsByDepartment']);
 Route::get('/curriculum/{curriculum}/semesters', [CurriculumController::class, 'getSemesterByCurriculum']);

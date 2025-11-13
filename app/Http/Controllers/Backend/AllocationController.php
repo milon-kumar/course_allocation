@@ -13,6 +13,7 @@ class AllocationController extends Controller
 
         $allocations = Allocation::with([
             'user.department',
+            'user.feedback',
             'subject.department',
             'subject.curriculum',
             'subject.semester'

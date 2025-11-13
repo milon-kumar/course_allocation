@@ -48,4 +48,10 @@ class User extends Authenticatable
     public function  department(){
         return $this->belongsTo(Department::class);
     }
+
+    public function feedback()
+    {
+        return $this->hasOne(Feedback::class, 'teacher_id', 'id');
+    }
+
 }

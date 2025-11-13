@@ -85,56 +85,65 @@
                                                 Semester: {{ $subject->semester->name ?? '---' }}
                                             </small>
                                         </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-bordered mb-0 align-middle">
-                                            <thead class="table-light">
-                                            <tr>
-                                                <th width="5%">#</th>
-                                                <th>Teacher Name</th>
-                                                <th>Email</th>
-                                                <th>Position</th>
-                                                <th>Priority</th>
-                                                <th>Status</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach ($teachers as $index => $allocation)
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-bordered mb-0 align-middle">
+                                                <thead class="table-light">
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $allocation->user->name ?? '---' }}</td>
-                                                    <td>{{ $allocation->user->email ?? '---' }}</td>
-                                                    <td>{{ $allocation->user->position ?? '---' }}</td>
-                                                    <td>{{ $allocation->user->priority ?? '---' }}</td>
-                                                    <td>
-                                                        @if ($allocation->status == 'approved')
-                                                            <span class="badge bg-success">Approved</span>
-                                                        @elseif ($allocation->status == 'pending')
-                                                            <span class="badge bg-warning text-dark">Pending</span>
-                                                        @elseif ($allocation->status == 'draft')
-                                                            <span class="badge bg-danger">Draft</span>
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="d-flex justify-content-center gap-2">
-                                                            <a href="{{ route('admin.approveAllocationSubject', $allocation->id) }}"
-                                                               class="btn btn-sm btn-success">
-                                                                Approve
-                                                            </a>
-
-                                                            <button class="btn btn-sm btn-danger draft-button"
-                                                                    data-subject-id="{{ $allocation->id }}"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#signup-modal">
-                                                                Draft
-                                                            </button>
-                                                        </div>
-                                                    </td>
+                                                    <th width="5%">#</th>
+                                                    <th>Teacher Name</th>
+                                                    <th>Email</th>
+                                                    <th>Position</th>
+                                                    <th>Priority</th>
+                                                    <th>Status</th>
+                                                    <th class="text-center">Action</th>
                                                 </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                @foreach ($teachers as $index => $allocation)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            <div class="d-flex flex-column">
+                                                                <span class="font-16">{{ $allocation->user->name ?? '---' }}</span>
+                                                                <span>Rating: {{ $allocation->user->feedback->rating ?? '0.0' }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $allocation->user->email ?? '---' }}</td>
+                                                        <td>{{ $allocation->user->position ?? '---' }}</td>
+                                                        <td>{{ $allocation->user->priority ?? '---' }}</td>
+                                                        <td>
+                                                            @if ($allocation->status == 'approved')
+                                                                <span class="badge bg-success">Approved</span>
+                                                            @elseif ($allocation->status == 'pending')
+                                                                <span class="badge bg-warning text-dark">Pending</span>
+                                                            @elseif ($allocation->status == 'draft')
+                                                                <span class="badge bg-danger">Draft</span>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="d-flex justify-content-center gap-2">
+                                                                @if($allocation->status != 'approved')
+                                                                    <a href="{{ route('admin.approveAllocationSubject', $allocation->id) }}"
+                                                                       class="btn btn-sm btn-success">
+                                                                        Approve
+                                                                    </a>
+
+                                                                    <button class="btn btn-sm btn-danger draft-button"
+                                                                            data-subject-id="{{ $allocation->id }}"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#signup-modal">
+                                                                        Draft
+                                                                    </button>
+                                                                @else
+                                                                    <p>No Action</p>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             @empty

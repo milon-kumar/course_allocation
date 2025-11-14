@@ -10,10 +10,10 @@
         </a>
         <a href="{{route('admin.dashboard')}}" class="logo text-center logo-dark">
             <span class="logo-lg">
-                <img src="{{asset('/')}}assets/backend/images/logo-dark.png" alt="" height="50">
+              <img src="{{asset('/')}}assets/backend/images/logo.png" alt="" height="50">
             </span>
             <span class="logo-sm">
-                <img src="{{asset('/')}}assets/backend/images/logo_sm_dark.png" alt="" height="50">
+                 <img src="{{asset('/')}}assets/backend/images/logo_sm.png" alt="" height="50">
             </span>
         </a>
 
@@ -78,7 +78,7 @@
                                 <a href="{{route('admin.requestedAllocation')}}">Request</a>
                             </li>
                             <li>
-                                <a href="tables-datatable.html">Approved</a>
+                                <a href="{{ route('admin.approvedAllocations') }}">Approved</a>
                             </li>
                         </ul>
                     </div>
@@ -97,10 +97,10 @@
         </a>
         <a href="{{route('teacher.dashboard')}}" class="logo text-center logo-dark">
             <span class="logo-lg">
-                <img src="{{asset('/')}}assets/backend/images/logo-dark.png" alt="" height="50">
+              <img src="{{asset('/')}}assets/backend/images/logo.png" alt="" height="50">
             </span>
             <span class="logo-sm">
-                <img src="{{asset('/')}}assets/backend/images/logo_sm_dark.png" alt="" height="50">
+                 <img src="{{asset('/')}}assets/backend/images/logo_sm.png" alt="" height="50">
             </span>
         </a>
         <div class="h-100" id="leftside-menu-container" data-simplebar="">
@@ -132,13 +132,20 @@
             <div class="clearfix"></div>
         </div>
     @elseif($user->role == 'student')
-
-        <a href="{{route('teacher.dashboard')}}" class="logo text-center logo-dark">
+        <a href="{{route('student.dashboard')}}" class="logo text-center logo-light">
             <span class="logo-lg">
-                <img src="{{asset('/')}}assets/backend/images/logo-dark.png" alt="" height="50">
+                <img src="{{asset('/')}}assets/backend/images/logo.png" alt="" height="50">
             </span>
             <span class="logo-sm">
-                <img src="{{asset('/')}}assets/backend/images/logo_sm_dark.png" alt="" height="50">
+                <img src="{{asset('/')}}assets/backend/images/logo_sm.png" alt="" height="50">
+            </span>
+        </a>
+        <a href="{{route('student.dashboard')}}" class="logo text-center logo-dark">
+            <span class="logo-lg">
+              <img src="{{asset('/')}}assets/backend/images/logo.png" alt="" height="50">
+            </span>
+            <span class="logo-sm">
+                 <img src="{{asset('/')}}assets/backend/images/logo_sm.png" alt="" height="50">
             </span>
         </a>
         <div class="h-100" id="leftside-menu-container" data-simplebar="">
@@ -154,6 +161,26 @@
                     <a href="{{route("student.feedback.index")}}" class="side-nav-link">
                         <i class="uil-dashboard"></i>
                         <span> Teacher Feedback </span>
+                    </a>
+                </li>
+                <li class="side-nav-title side-nav-item">Information</li>
+                <li class="side-nav-item">
+                    <a href="{{route("student.comingSon")}}" class="side-nav-link">
+                        <i class="uil-dashboard"></i>
+                        <span> Batch </span>
+                    </a>
+                </li>
+                <li class="side-nav-title side-nav-item">Apps</li>
+                <li class="side-nav-item">
+                    <a href="{{route("student.comingSon")}}" class="side-nav-link">
+                        <i class="uil-dashboard"></i>
+                        <span> Account </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
+                    <a href="{{route("student.comingSon")}}" class="side-nav-link">
+                        <i class="uil-dashboard"></i>
+                        <span> Live Message </span>
                     </a>
                 </li>
             </ul>

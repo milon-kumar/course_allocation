@@ -26,7 +26,8 @@ class AllocationController extends Controller
         return view('backend.pages.admin.allocation.requested_allocation', $data);
     }
 
-    public function approveAllocationSubject($id){
+    public function approveAllocationSubject($id)
+    {
         $allocation = Allocation::findOrFail($id);
         $allocation->update([
             'status' => 'approved',
@@ -37,7 +38,8 @@ class AllocationController extends Controller
         return redirect()->back();
     }
 
-    public function draftAllocationSubject(Request $request){
+    public function draftAllocationSubject(Request $request)
+    {
         $allocation = Allocation::findOrFail($request->subject_id);
         $allocation->update([
             'status' => 'draft',
@@ -48,4 +50,22 @@ class AllocationController extends Controller
         flash()->warning('Course Allocation In Draft');
         return redirect()->back();
     }
+
+    public function approvedAllocations()
+    {
+        $data = [
+            'title' => "Approved Allocation",
+            'allocations' => Allocation::with([
+                'user',
+                'subject',
+                'subject.department',
+                'subject.curriculum',
+                'subject.semester'
+            ])->where('status', 'approved')->get()
+        ];
+
+
+        return view('backend.pages.admin.allocation.approved_allocation', $data);
+    }
+
 }

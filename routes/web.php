@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/allocation',[AllocationController::class,'requestedAllocation'])->name('requestedAllocation');
     Route::get('/approve-allocation-subject/{id}',[AllocationController::class,'approveAllocationSubject'])->name('approveAllocationSubject');
     Route::post('/draft-allocation-subject',[AllocationController::class,'draftAllocationSubject'])->name('draftAllocationSubject');
+    Route::get('/approved-allocations',[AllocationController::class,'approvedAllocations'])->name('approvedAllocations');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -79,6 +80,7 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['auth'
 Route::group(['prefix' => 'student', 'as' => 'student.', 'middleware' => ['auth', 'student']], function () {
     Route::get('/dashboard', [DashboardController::class, 'studentDashboard'])->name('dashboard');
     Route::resource('/feedback', FeedbackController::class);
+    Route::view('/coming-soon','backend.pages.student.comming-soon')->name('comingSon');
 });
 
 

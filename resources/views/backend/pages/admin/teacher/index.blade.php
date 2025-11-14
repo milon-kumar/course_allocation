@@ -44,7 +44,7 @@
                                             </div>
 
                                             <span class="float-start m-2 me-4">
-                                                <img src="{{asset('/')}}assets/backend/images/users/avatar-2.jpg" style="height: 100px;" alt="{{ $teacher->name ?? 'Teacher Name'}}" class="rounded-circle img-thumbnail">
+                                                <img src="https://avatar.iran.liara.run/username?username={{ $teacher->name }}" style="height: 100px;" alt="{{ $teacher->name ?? 'Teacher Name'}}" class="rounded-circle img-thumbnail">
                                             </span>
                                             <div class="">
                                                 <h4 class="mt-1 mb-1">{{ $teacher->name ?? 'Teacher Name'}}</h4>

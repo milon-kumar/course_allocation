@@ -51,7 +51,7 @@
                                     <input type="text"
                                     class="form-control form-control-sm @error('name') border border-danger @enderror"
                                     id="colFormLabelSm"
-                                    placeholder="Enter Curriculum Name"
+                                    placeholder="Enter Semester Name"
                                     name="name"
                                     value="{{ old('name')}}">
                                     @include('backend.components.error-message',['name'=>'name'])
